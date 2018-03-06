@@ -1,11 +1,10 @@
-clear all;
-close all;
-
+%close all;
+h = figure('Name', label, 'NumberTitle', 'off');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set parameters
 
 params.max_cuts=8;   
-params.penalty = 'radub';
+params.penalty = penalty;
 params.pen_wt = 1;
 params.n_shift = 11;   
 params.shift_frac = .1;  
@@ -20,7 +19,7 @@ params.max_iter = 15;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Read in data. Change the switch argument to select a different dataset.
-switch 1
+switch 5
     case 1 
         %params.prob = 'PE';
         %params.prob = 'NP';
@@ -31,7 +30,7 @@ switch 1
         load banana 
         
         if strcmp(params.prob,'NP')
-            params.alpha=0.05;
+            params.alpha=0.9;
             %xtest=xtrain;
             %ytest=ytrain;
         end
@@ -78,7 +77,7 @@ switch 1
 
     case 3 % spherical gaussian
         params.prob = 'MV';  
-        params.alpha = 0.8;
+        params.alpha = 0.9;
         
         n_train=500;
         n_test=1000;
@@ -91,7 +90,7 @@ switch 1
         ytrain=zeros(1,size(xtrain,2));
     case 4 % 2d mixture data used in paper
         params.prob = 'MV';  
-        params.alpha = 0.95;
+        params.alpha = 0.9;
 
         n_train=500;
         n_test=500;
@@ -101,6 +100,19 @@ switch 1
             mvg(n_test/2,2,[0 -2]', [1 -.95; -.95 1])];
         ytrain=zeros(1,size(xtrain,2));
         xtest = xtrain;
+    case 5 % new
+        params.prob = 'MV';
+        params.alpha = 0.9;
+        
+        params.display_est=1;
+       
+        fid = fopen(fname);
+        C = textscan(fid, '%s%f%f');
+        x = [C{2}, C{3}];
+        xtrain = x(1:500, :)'; xtest = x(501:end, :)';
+        ytrain = zeros(1, size(xtrain, 2));
+        
+        n_train = size(xtrain, 2); n_test = size(xtest, 2);
 end
 
 
