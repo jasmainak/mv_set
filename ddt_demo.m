@@ -111,7 +111,9 @@ switch 5
         x = [C{2}, C{3}];
         last_train = floor(size(x, 1) / 2);
         xtrain = x(1:last_train, :)'; xtest = x(last_train:end, :)';
-        ytrain = zeros(1, size(xtrain, 2));
+        
+        y = x(:, 1) > threshold | x(:, 2) > threshold;
+        ytrain = y(1:last_train, :)'; ytest = y(last_train:end, :)';
         
         n_train = size(xtrain, 2); n_test = size(xtest, 2);
 end

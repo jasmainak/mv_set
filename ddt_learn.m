@@ -166,7 +166,7 @@ function [labels,stats] = ddt_learn(xtrain,ytrain,xtest,params)
 %   - multiple classes only supported for PE, CS, and MM
 %   - the hard work is done by ddt_core.cpp, which implements the algorithm
 %       found in
-%           G. Blanchard, C. Schäfer, Y. Rozenholc, ``Oracle bounds and exact
+%           G. Blanchard, C. SchÃ¤fer, Y. Rozenholc, ``Oracle bounds and exact
 %           algorithm for dyadic classification trees,'' In Proceedings of the 
 %           17th. Conference on Learning Theory (COLT 2004). Springer 
 %           Lecture Notes in Artificial Intelligence (3120), 378-392, 2004. 
@@ -896,6 +896,11 @@ if n_grid>0
                 end
                 scatter(xtrain(1,i0),xtrain(2,i0),'o');
                 scatter(xtrain(1,i1),xtrain(2,i1),'x');
+                x_inliers = xtrain(:, ytrain == 0);
+                k = convhull(x_inliers(1, :), x_inliers(2, :));
+                hold on;
+                plot(x_inliers(1, k), x_inliers(2, k), 'color', ...
+                     [0.5, 0.5, 0.5], 'LineWidth', 3);
             case 3
                 if prob==5 | prob==6    % give inliers and outliers different markers
                     i0=find(labels(1:n_train)==0); i1=find(labels(1:n_train)==1);
