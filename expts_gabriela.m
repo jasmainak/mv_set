@@ -2,7 +2,7 @@ clear all;
 
 mkdir('figures');
 penalties = {'rad', 'radvol', 'con', 'radub'};
-fnames = {'regen1.txt', 'regen2.txt', 'regen3.txt'};
+fnames = {'process1.txt', 'process2.txt', 'process3.txt'};
 
 vols = [];
 for i=1:length(penalties)

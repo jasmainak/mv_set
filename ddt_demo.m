@@ -109,7 +109,8 @@ switch 5
         fid = fopen(fname);
         C = textscan(fid, '%s%f%f');
         x = [C{2}, C{3}];
-        xtrain = x(1:500, :)'; xtest = x(501:end, :)';
+        last_train = floor(size(x, 1) / 2);
+        xtrain = x(1:last_train, :)'; xtest = x(last_train:end, :)';
         ytrain = zeros(1, size(xtrain, 2));
         
         n_train = size(xtrain, 2); n_test = size(xtest, 2);
