@@ -885,7 +885,7 @@ if n_grid>0
         switch d
             case 2
                 set_im = reshape(set_map,[n_grid,n_grid]);
-                imagesc(lims,lims,.4*set_im+.6,[0,1]);
+                imagesc(lims,lims,.3*set_im+.7, [0,1]);
                 colormap(gray)
                 axis xy
                 hold on
@@ -894,13 +894,14 @@ if n_grid>0
                 else % give the different classes different labels
                     i0=find(ytrain==0); i1=find(ytrain==1);
                 end
-                scatter(xtrain(1,i0),xtrain(2,i0),'o');
-                scatter(xtrain(1,i1),xtrain(2,i1),'x');
+
                 x_inliers = xtrain(:, i1);
                 k = convhull(x_inliers(1, :), x_inliers(2, :));
-                hold on;
+
+                scatter(xtrain(1,i0),xtrain(2,i0), 10, 'filled', 'o', 'MarkerFaceColor', [1, 0.6, 0.6]);
                 plot(x_inliers(1, k), x_inliers(2, k), 'color', ...
-                     [0.5, 0.5, 0.5], 'LineWidth', 3);
+                     [0.4, 0.4, 1], 'LineWidth', 1);
+                scatter(xtrain(1,i1),xtrain(2,i1), 10, 'filled', 'o', 'MarkerFaceColor', [0.4, 0.4, 1]);
             case 3
                 if prob==5 | prob==6    % give inliers and outliers different markers
                     i0=find(labels(1:n_train)==0); i1=find(labels(1:n_train)==1);
