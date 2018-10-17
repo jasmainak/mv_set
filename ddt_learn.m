@@ -896,7 +896,7 @@ if n_grid>0
                 end
                 scatter(xtrain(1,i0),xtrain(2,i0),'o');
                 scatter(xtrain(1,i1),xtrain(2,i1),'x');
-                x_inliers = xtrain(:, ytrain == 0);
+                x_inliers = xtrain(:, i1);
                 k = convhull(x_inliers(1, :), x_inliers(2, :));
                 hold on;
                 plot(x_inliers(1, k), x_inliers(2, k), 'color', ...
